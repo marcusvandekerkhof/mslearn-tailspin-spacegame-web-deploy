@@ -6,12 +6,12 @@ variables:
   releaseBranchName: 'release'
 
 schedules:
-- cron: '0 3 * * *'
-  displayName: 'Deploy every day at 3 A.M.'
-  branches:
-    include:
-    - release
-  always: false 
+  - cron: '0 3 * * *'
+    displayName: 'Deploy every day at 3 A.M.'
+    branches:
+      include:
+        - release
+    always: false
 
 stages:
   - stage: 'Build'
@@ -103,8 +103,6 @@ stages:
                     appName: '$(WebAppNameDev)'
                     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
 
-                    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
-  
   - stage: 'Test'
     displayName: 'Deploy to the test environment'
     dependsOn: Dev
@@ -127,5 +125,4 @@ stages:
                   inputs:
                     azureSubscription: 'Resource Manager - Tailspin - Space Game'
                     appName: '$(WebAppNameTest)'
-                    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'                              
-                    
+                    package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
